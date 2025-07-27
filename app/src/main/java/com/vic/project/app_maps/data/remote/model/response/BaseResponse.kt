@@ -9,8 +9,8 @@ import java.util.Objects
 open class BaseResponse {
     @SerializedName("predictions")
     val predictions: JsonElement? = null
-    @SerializedName("candidates")
-    val candidates: JsonElement? = null
+    @SerializedName("results")
+    val results: JsonElement? = null
     @SerializedName("messages")
     val message: String = ""
     @SerializedName("code")
@@ -19,13 +19,13 @@ open class BaseResponse {
     val status: String? = null
 
     fun data(): String {
-        return Objects.toString(predictions?:candidates)
+        return Objects.toString(predictions?:results)
     }
 
     val dataObject: JsonObject
-        get() = (predictions?:candidates)!!.asJsonObject
+        get() = (predictions?:results)!!.asJsonObject
 
     val dataArray: JsonArray
-        get() = (predictions?:candidates)!!.asJsonArray
+        get() = (predictions?:results)!!.asJsonArray
 
 }
