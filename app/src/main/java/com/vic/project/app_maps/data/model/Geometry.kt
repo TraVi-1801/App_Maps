@@ -1,0 +1,1 @@
+package com.vic.project.app_maps.data.modeldata class Geometry(    val location: Location)

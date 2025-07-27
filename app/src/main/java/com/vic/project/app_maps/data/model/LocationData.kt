@@ -1,0 +1,1 @@
+package com.vic.project.app_maps.data.modeldata class LocationData(    val description: String,    val formatted_address: String,    val geometry: Geometry,    val name: String,    val rating: Double)

@@ -1,0 +1,1 @@
+package com.vic.project.app_maps.data.modelimport com.google.android.gms.maps.model.LatLngdata class LatLong(    val lat: Double? = null,    val long: Double? = null,    val bearing: Float? = null,) {    fun convertLatLng(): LatLng =        if (lat != null && long != null) LatLng(lat, long) else LatLng(10.777789, 106.698848)}

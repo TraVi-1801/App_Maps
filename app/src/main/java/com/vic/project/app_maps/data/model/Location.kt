@@ -1,0 +1,1 @@
+package com.vic.project.app_maps.data.modeldata class Location(    val lat: Double,    val lng: Double)
