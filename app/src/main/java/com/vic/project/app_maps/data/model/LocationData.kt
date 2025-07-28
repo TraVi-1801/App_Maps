@@ -1,1 +1,1 @@
-package com.vic.project.app_maps.data.modeldata class LocationData(    val description: String,    val formatted_address: String,    val geometry: Geometry,    val name: String,    val rating: Double)
+package com.vic.project.app_maps.data.modeldata class LocationData(    val key: String = java.util.UUID.randomUUID().toString(),    val description: String,    val formatted_address: String,    val geometry: Geometry,    val name: String,    val rating: Float,    val types: List<String>,    val user_ratings_total: Int,)

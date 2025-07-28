@@ -1,1 +1,1 @@
-package com.vic.project.app_maps.data.modeldata class Location(    val lat: Double,    val lng: Double)
+package com.vic.project.app_maps.data.modelimport com.google.android.gms.maps.model.LatLngdata class Location(    val lat: Double,    val lng: Double){    fun convertLatLng(): LatLng = LatLng(lat, lng)}
