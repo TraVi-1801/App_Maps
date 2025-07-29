@@ -1,0 +1,1 @@
+package com.vic.project.app_maps.data.modelenum class SheetValue { Collapsed, PartiallyExpanded, Expanded }

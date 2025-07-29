@@ -2,7 +2,6 @@ package com.vic.project.app_maps.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -18,23 +16,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,7 +35,7 @@ import com.vic.project.app_maps.presentation.theme.warningMain
 import com.vic.project.app_maps.utils.ModifierExtension.clickableSingle
 import com.vic.project.app_maps.utils.ModifierExtension.shadowCustom
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun ResultSearchLocation(
     title: String,
@@ -58,45 +45,15 @@ fun ResultSearchLocation(
     onStart: (LocationData) -> Unit,
     onDirections: (LocationData) -> Unit,
 ) {
-    var countChange by remember {
-        mutableIntStateOf(1)
-    }
-    var check by remember {
-        mutableStateOf(false)
-    }
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = false,
-        confirmValueChange = {
-            if (it == SheetValue.Hidden) {
-                check = true
-                countChange = 0
-            } else {
-                check = countChange == 0
-                countChange = 1
-            }
-            it != SheetValue.Hidden
-        }
-    )
-
-    ModalBottomSheet(
-        modifier = Modifier
-            .statusBarsPadding(),
-        onDismissRequest = {},
-        sheetState = sheetState,
-        containerColor = Gray_10,
-    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .then(
-                    if (check) Modifier.height(100.dp) else Modifier
-                )
                 .padding(horizontal = 16.dp),
         ) {
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 16.dp),
+                    .padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ){
@@ -211,5 +168,4 @@ fun ResultSearchLocation(
                 }
             }
         }
-    }
 }
