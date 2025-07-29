@@ -1,8 +1,64 @@
 package com.vic.project.app_maps.utils
 
+import android.location.Location.distanceBetween
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.SphericalUtil
+import com.vic.project.app_maps.data.model.Step
 
 object MapUtils {
+    fun getRemainingPolylinePoints(
+        fullPolylinePoints: List<LatLng>,
+        current: LatLng
+    ): List<LatLng> {
+        val nearestIndex = fullPolylinePoints.indexOfNearest(current)
+        return if (nearestIndex != -1) {
+            fullPolylinePoints.subList(nearestIndex, fullPolylinePoints.size)
+        } else {
+            fullPolylinePoints
+        }
+    }
+
+    fun List<LatLng>.indexOfNearest(target: LatLng): Int {
+        var minDistance = Double.MAX_VALUE
+        var index = -1
+
+        forEachIndexed { i, point ->
+            val distance = SphericalUtil.computeDistanceBetween(point, target)
+            if (distance < minDistance) {
+                minDistance = distance
+                index = i
+            }
+        }
+
+        return index
+    }
+
+
+    fun isOffRoute(current: LatLng, stepPolyline: List<LatLng>, thresholdMeters: Double = 30.0): Boolean {
+        val closestDistance = stepPolyline.minOf { point ->
+            SphericalUtil.computeDistanceBetween(current, point)
+        }
+        return closestDistance > thresholdMeters
+    }
+
+    fun getNextStep(current: LatLng, steps: List<Step>): Step? {
+        return steps.minByOrNull {
+            distanceBetween(current, it.start_location?.convertLatLng())
+        }?.takeIf {
+            distanceBetween(current, it.start_location?.convertLatLng()) < 30  // ngưỡng 30m
+        }
+    }
+
+    fun distanceBetween(p1: LatLng?, p2: LatLng?): Float {
+        if (p1 == null || p2 == null) return 0f
+        val result = FloatArray(1)
+        distanceBetween(
+            p1.latitude, p1.longitude,
+            p2.latitude, p2.longitude,
+            result
+        )
+        return result[0]
+    }
     fun decodePoly(encoded: String?): List<LatLng> {
         if (encoded == null) return emptyList()
 

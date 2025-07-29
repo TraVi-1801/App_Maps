@@ -30,6 +30,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -55,6 +56,7 @@ import com.vic.project.app_maps.presentation.theme.primaryMain
 import com.vic.project.app_maps.presentation.theme.warningMain
 import com.vic.project.app_maps.utils.ModifierExtension.clickableSingle
 import com.vic.project.app_maps.utils.ModifierExtension.shadowCustom
+import kotlin.collections.ifEmpty
 
 
 @Composable
@@ -144,6 +146,21 @@ fun ResultSearchLocation(
 
             item {
                 Spacer(Modifier.height(12.dp))
+            }
+            if (list.isEmpty()){
+                item {
+                    Text(
+                        text = "No data",
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.W500,
+                        maxLines = 1,
+                        overflow = TextOverflow.Clip,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 20.dp)
+                    )
+                }
             }
             items(list) {
                 Column(
