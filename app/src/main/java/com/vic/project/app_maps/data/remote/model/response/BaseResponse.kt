@@ -11,6 +11,8 @@ open class BaseResponse {
     val predictions: JsonElement? = null
     @SerializedName("results")
     val results: JsonElement? = null
+    @SerializedName("routes")
+    val routes: JsonElement? = null
     @SerializedName("messages")
     val message: String = ""
     @SerializedName("code")
@@ -19,13 +21,13 @@ open class BaseResponse {
     val status: String? = null
 
     fun data(): String {
-        return Objects.toString(predictions?:results)
+        return Objects.toString(predictions?:results?:routes)
     }
 
     val dataObject: JsonObject
-        get() = (predictions?:results)!!.asJsonObject
+        get() = (predictions?:results?:routes)!!.asJsonObject
 
     val dataArray: JsonArray
-        get() = (predictions?:results)!!.asJsonArray
+        get() = (predictions?:results?:routes)!!.asJsonArray
 
 }

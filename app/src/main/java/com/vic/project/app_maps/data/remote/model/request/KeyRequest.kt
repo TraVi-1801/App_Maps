@@ -7,4 +7,5 @@ enum class KeyRequest(val url: String, val codeResponse: String = RESPONSE_OK) {
 
     PLACE_AUTO("place/autocomplete/json?"),
     PLACE_SEARCH("place/textsearch/json?"),
+    DIRECTIONS("directions/json?"),
 }

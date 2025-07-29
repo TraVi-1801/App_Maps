@@ -36,6 +36,7 @@ open class BaseViewModel<State : Any, Event>(initialState: State) : ViewModel() 
     }
 
     fun Flow<ResultWrapper<BaseResponse>>.collectData(
+        doOnError: () -> Unit = {},
         doOnSuccess: (String) -> Unit
     ) {
         async {
@@ -43,6 +44,9 @@ open class BaseViewModel<State : Any, Event>(initialState: State) : ViewModel() 
                 when (it) {
                     is ResultWrapper.Success -> {
                         doOnSuccess.invoke(it.value.data())
+                    }
+                    is ResultWrapper.Error -> {
+                        doOnError.invoke()
                     }
                     else -> Unit
                 }
