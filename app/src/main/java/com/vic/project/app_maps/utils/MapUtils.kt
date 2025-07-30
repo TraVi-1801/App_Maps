@@ -4,8 +4,26 @@ import android.location.Location.distanceBetween
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.vic.project.app_maps.data.model.Step
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
 
 object MapUtils {
+
+    fun calculateBearing(start: LatLng, end: LatLng): Float {
+        val lat1 = Math.toRadians(start.latitude)
+        val lon1 = Math.toRadians(start.longitude)
+        val lat2 = Math.toRadians(end.latitude)
+        val lon2 = Math.toRadians(end.longitude)
+
+        val dLon = lon2 - lon1
+        val y = sin(dLon) * cos(lat2)
+        val x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+        val bearing = Math.toDegrees(atan2(y, x))
+        return ((bearing + 360) % 360).toFloat()
+    }
+
+
     fun getRemainingPolylinePoints(
         fullPolylinePoints: List<LatLng>,
         current: LatLng
